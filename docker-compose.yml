@@ -1,9 +1,13 @@
 version: "3.9"
 services:
+  # backend:
+    # depends_on:
+    #   postgres-database:
+    #     condition: service_healthy
   database:
     build: db/.
-    image: db
-    container_name: db
+    image: database
+    container_name: database
     environment:
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -17,11 +21,11 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB_NAME}" ]
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_DOCKER_USER} -d ${POSTGRES_DOCKER_DB_NAME}'"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+      timeout: 3s
+      retries: 3
 volumes:
   db-data:
     driver: local
-    name: db
+    name: database
