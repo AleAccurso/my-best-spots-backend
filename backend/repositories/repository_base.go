@@ -1,6 +1,6 @@
 package repositories
 
 type RepositoryBase struct {
-	UserRepository  IUserRepository
-	AuthRepository  IAuthRepository
+	UserRepository IUserRepository
+	AuthRepository IAuthRepository
 }

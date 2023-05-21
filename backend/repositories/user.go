@@ -28,7 +28,7 @@ func (repository UserRepository) GetUsers(context context.Context, page int, siz
 	var users []models.User
 
 	limit := int64(size)
-	skip := int64((page-1) * size)
+	skip := int64((page - 1) * size)
 	options := options.FindOptions{Limit: &limit, Skip: &skip}
 
 	cursor, err := repository.database.Users.Find(context, bson.M{}, &options)

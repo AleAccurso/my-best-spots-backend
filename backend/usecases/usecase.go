@@ -12,7 +12,7 @@ type Usecase struct {
 func Initialise(repository repositories.Repository, service services.Service) Usecase {
 	return Usecase{
 		UsecaseBase: UsecaseBase{
-			UserUsecase:  InitialiseUserUsecase(repository),
+			UserUsecase: InitialiseUserUsecase(repository),
 		},
 	}
 }
