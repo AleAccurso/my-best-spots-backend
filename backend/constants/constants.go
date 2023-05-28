@@ -31,3 +31,4 @@ const DB_ERROR = "db-error"
 
 // SERVER
 const SERVER_ERROR = "server/bad-configuration"
+const MISSING_DB_CONNECTION_PARAMS = "database/missing-db-connection-params"

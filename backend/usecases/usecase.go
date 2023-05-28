@@ -1,8 +1,8 @@
 package usecases
 
 import (
-	"new-rating-movies-go-backend/repositories"
-	"new-rating-movies-go-backend/services"
+	"my-best-spots-backend/repositories"
+	"my-best-spots-backend/services"
 )
 
 type Usecase struct {
@@ -12,7 +12,7 @@ type Usecase struct {
 func Initialise(repository repositories.Repository, service services.Service) Usecase {
 	return Usecase{
 		UsecaseBase: UsecaseBase{
-			UserUsecase: InitialiseUserUsecase(repository),
+			CategoryUsecase: InitialiseCategoryUsecase(repository),
 		},
 	}
 }

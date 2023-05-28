@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"new-rating-movies-go-backend/controllers"
-	middlewares "new-rating-movies-go-backend/middelwares"
+	"my-best-spots-backend/controllers"
+	middlewares "my-best-spots-backend/middelwares"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -41,16 +41,14 @@ func (router Router) Run() error {
 	////////////////////////////////////////
 
 	// Authentication
-	api.GET("/me", router.authMiddleware.Authorize(router.controller.AuthController.GetMe))
-	api.POST("/login", router.controller.AuthController.Login)
-	api.GET("/logout", router.authMiddleware.Authorize(router.controller.AuthController.Logout))
-	api.POST("/register", router.controller.AuthController.Register)
+	// api.GET("/me", router.authMiddleware.Authorize(router.controller.AuthController.GetMe))
+	// api.POST("/login", router.controller.AuthController.Login)
+	// api.GET("/logout", router.authMiddleware.Authorize(router.controller.AuthController.Logout))
 
-	// User
-	api.GET("/users", router.authMiddleware.Authorize(router.controller.UserController.GetUsers, "admin"))
-	api.GET("/users/:userId", router.authMiddleware.Authorize(router.controller.UserController.GetUserById))
-	api.POST("/users/:userId", router.authMiddleware.Authorize(router.controller.UserController.UpdateUserById))
-	api.DELETE("/users/:userId", router.authMiddleware.Authorize(router.controller.UserController.DeleteUserById))
+	// Categories
+	// api.GET("/categories", router.authMiddleware.Authorize(router.controller.CategoryController.GetCategories))
+	api.GET("/categories", router.controller.CategoryController.GetCategories)
+	api.GET("/categories/:category_id", router.controller.CategoryController.GetCategoryById)
 
 	// Run the engine
 	if err := router.engine.Run(":8010"); err != nil {

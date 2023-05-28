@@ -1,6 +1,6 @@
 package services
 
-import "new-rating-movies-go-backend/repositories"
+import "my-best-spots-backend/repositories"
 
 type Service struct {
 	ServiceBase
@@ -9,8 +9,7 @@ type Service struct {
 func Initialise(repository repositories.Repository) Service {
 	return Service{
 		ServiceBase: ServiceBase{
-			AuthService:       InitialiseAuthService(repository),
-			TheMovieDbService: InitialiseTheMovieDbService(),
+			AuthService: InitialiseAuthService(repository),
 		},
 	}
 }

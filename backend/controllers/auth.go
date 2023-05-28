@@ -1,15 +1,8 @@
 package controllers
 
 import (
-	"errors"
-	"net/http"
-	"new-rating-movies-go-backend/constants"
-	"new-rating-movies-go-backend/dtos"
-	"new-rating-movies-go-backend/services"
-	"new-rating-movies-go-backend/usecases"
-
-	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
+	"my-best-spots-backend/services"
+	"my-best-spots-backend/usecases"
 )
 
 type AuthController struct {
@@ -21,60 +14,60 @@ func InitialiseAuthController(usecases usecases.Usecase, services services.Servi
 	return AuthController{usecases: usecases, services: services}
 }
 
-func (controller AuthController) Register(c *gin.Context) {
+// func (controller AuthController) Register(c *gin.Context) {
 
-	var userReqCreateDTO dtos.UserReqCreateDTO
+// 	var CategoryReqCreateDTO dtos.CategoryReqCreateDTO
 
-	if err := c.ShouldBindBodyWith(&userReqCreateDTO, binding.JSON); err != nil {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.UNABLE_TO_BIND_BODY).Error())
-		return
-	}
+// 	if err := c.ShouldBindBodyWith(&CategoryReqCreateDTO, binding.JSON); err != nil {
+// 		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.UNABLE_TO_BIND_BODY).Error())
+// 		return
+// 	}
 
-	newId, err := controller.services.AuthService.Register(c, userReqCreateDTO)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, err.Error())
-		return
-	}
+// 	newId, err := controller.services.AuthService.Register(c, CategoryReqCreateDTO)
+// 	if err != nil {
+// 		c.IndentedJSON(http.StatusBadRequest, err.Error())
+// 		return
+// 	}
 
-	c.IndentedJSON(http.StatusOK, newId)
-}
+// 	c.IndentedJSON(http.StatusOK, newId)
+// }
 
-func (controller AuthController) Login(c *gin.Context) {
+// func (controller AuthController) Login(c *gin.Context) {
 
-	var loginReqDTO dtos.LoginReqDTO
-	if err := c.ShouldBindJSON(&loginReqDTO); err != nil {
-		c.IndentedJSON(http.StatusBadRequest, err.Error())
-		return
-	}
+// 	var loginReqDTO dtos.LoginReqDTO
+// 	if err := c.ShouldBindJSON(&loginReqDTO); err != nil {
+// 		c.IndentedJSON(http.StatusBadRequest, err.Error())
+// 		return
+// 	}
 
-	token, err := controller.services.AuthService.Login(c, loginReqDTO)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, err.Error())
-		return
-	}
+// 	token, err := controller.services.AuthService.Login(c, loginReqDTO)
+// 	if err != nil {
+// 		c.IndentedJSON(http.StatusBadRequest, err.Error())
+// 		return
+// 	}
 
-	c.IndentedJSON(http.StatusOK, gin.H{"token": token})
-}
+// 	c.IndentedJSON(http.StatusOK, gin.H{"token": token})
+// }
 
-func (controller AuthController) Logout(c *gin.Context) {
-	controller.services.AuthService.Logout(c)
-	c.IndentedJSON(http.StatusOK, constants.SUCCESS_ACTION+"logout")
-}
+// func (controller AuthController) Logout(c *gin.Context) {
+// 	controller.services.AuthService.Logout(c)
+// 	c.IndentedJSON(http.StatusOK, constants.SUCCESS_ACTION+"logout")
+// }
 
-func (controller AuthController) GetMe(c *gin.Context) {
+// func (controller AuthController) GetMe(c *gin.Context) {
 
-	userEmail, ok := c.MustGet("user_email").(string)
-	if !ok {
-		c.IndentedJSON(http.StatusBadRequest, errors.New("email not in context"))
-		return
-	}
+// 	CategoryEmail, ok := c.MustGet("Category_email").(string)
+// 	if !ok {
+// 		c.IndentedJSON(http.StatusBadRequest, errors.New("email not in context"))
+// 		return
+// 	}
 
-	user, err := controller.usecases.UserUsecase.GetUserByEmail(c, userEmail)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, err.Error())
-		return
-	}
+// 	Category, err := controller.usecases.CategoryUsecase.GetCategoryByEmail(c, CategoryEmail)
+// 	if err != nil {
+// 		c.IndentedJSON(http.StatusBadRequest, err.Error())
+// 		return
+// 	}
 
-	c.IndentedJSON(http.StatusOK, user)
+// 	c.IndentedJSON(http.StatusOK, Category)
 
-}
+// }

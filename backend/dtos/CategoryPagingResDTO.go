@@ -1,9 +1,9 @@
 package dtos
 
-type UserPagingResDTO struct {
+type CategoryPagingResDTO struct {
 	Page      int8
 	Size      int8
 	NbPages   int8
 	NbResults int16
-	Data      []UserResDTO
+	Data      []CategoryResDTO
 }

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"new-rating-movies-go-backend/enums"
+	"my-best-spots-backend/enums"
 
 	"golang.org/x/exp/slices"
 )

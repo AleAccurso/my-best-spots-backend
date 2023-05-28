@@ -1,39 +1,33 @@
 package repositories
 
 import (
-	"context"
-	"errors"
-	"new-rating-movies-go-backend/database"
-	"new-rating-movies-go-backend/models"
-	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"gorm.io/gorm"
 )
 
 type AuthRepository struct {
-	database *database.Database
+	database *gorm.DB
 }
 
-func InitialiseAuthRepository(db *database.Database) AuthRepository {
+func InitialiseAuthRepository(db *gorm.DB) AuthRepository {
 	return AuthRepository{
 		database: db,
 	}
 }
 
-func (repository AuthRepository) AddUser(context context.Context, user models.User) (*primitive.ObjectID, error) {
+// func (repository AuthRepository) AddCategory(context context.Context, Category models.Category) (*primitive.ObjectID, error) {
 
-	now := time.Now().UTC()
-	user.CreatedAt, user.UpdatedAt = now, now
+// 	now := time.Now().UTC()
+// 	Category.CreatedAt, Category.UpdatedAt = now, now
 
-	result, err := repository.database.Users.InsertOne(context, user)
-	if err != nil {
-		return nil, errors.New("reposiotry/unable-to-register")
-	}
+// 	result, err := repository.database.Categories.InsertOne(context, Category)
+// 	if err != nil {
+// 		return nil, errors.New("reposiotry/unable-to-register")
+// 	}
 
-	newID, ok := result.InsertedID.(primitive.ObjectID)
-	if !ok {
-		return nil, errors.New("reposiotry/unable-to-convert-id")
-	}
+// 	newID, ok := result.InsertedID.(primitive.ObjectID)
+// 	if !ok {
+// 		return nil, errors.New("reposiotry/unable-to-convert-id")
+// 	}
 
-	return &newID, nil
-}
+// 	return &newID, nil
+// }

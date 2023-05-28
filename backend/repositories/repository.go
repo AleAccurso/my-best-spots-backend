@@ -1,18 +1,18 @@
 package repositories
 
 import (
-	"new-rating-movies-go-backend/database"
+	"gorm.io/gorm"
 )
 
 type Repository struct {
 	RepositoryBase
 }
 
-func Initialise(database *database.Database) Repository {
+func Initialise(database *gorm.DB) Repository {
 	return Repository{
 		RepositoryBase: RepositoryBase{
-			UserRepository: InitialiseUserRepository(database),
-			AuthRepository: InitialiseAuthRepository(database),
+			CategoryRepository: InitialiseCategoryRepository(database),
+			AuthRepository:     InitialiseAuthRepository(database),
 		},
 	}
 }

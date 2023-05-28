@@ -1,81 +1,49 @@
 package database
 
 import (
-	"context"
 	"errors"
 	"fmt"
+	"my-best-spots-backend/constants"
+	"net/url"
 	"os"
 
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-type Database struct {
-	// Client *mongo.Client
-	Users  *mongo.Collection
-	Movies *mongo.Collection
-}
+func Initialise() (*gorm.DB, error) {
 
-func Initialise() (*Database, error) {
-
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load("../.env"); err != nil {
 		return nil, errors.New("database: No .env file found")
 		// log.Println("No .env file found")
 	}
 
-	uri := os.Getenv("MONGODB_URI")
+	// Check connection information
+	PG_HOST := os.Getenv("POSTGRES_HOST_ADDRESS")
+	PG_PORT := os.Getenv("POSTGRES_HOST_PORT")
+	PG_USER := os.Getenv("POSTGRES_DOCKER_USER")
+	PG_PASSWORD := os.Getenv("POSTGRES_DOCKER_PASSWORD")
+	PG_DB_NAME := os.Getenv("POSTGRES_DOCKER_DB_NAME")
 
-	if uri == "" {
-		return nil, errors.New("Database: You must set your 'MONGODB_URI' environmental variable")
-		// log.Fatal("You must set your 'MONGODB_URI' environmental variable. See\n\t https://www.mongodb.com/docs/drivers/go/current/usage-examples/#environment-variable")
+	if PG_HOST == "" || PG_PORT == "" || PG_USER == "" || PG_PASSWORD == "" || PG_DB_NAME == "" {
+		return nil, errors.New(constants.MISSING_DB_CONNECTION_PARAMS)
 	}
 
-	ctx := context.TODO()
+	dsn := url.URL{
+		User:     url.UserPassword(PG_USER, PG_PASSWORD),
+		Scheme:   "postgres",
+		Host:     fmt.Sprintf("%s:%s", PG_HOST, PG_PORT),
+		Path:     PG_DB_NAME,
+		RawQuery: (&url.Values{"sslmode": []string{"disable"}}).Encode(),
+	}
 
-	opt := options.Client().ApplyURI(uri)
-	client, err := mongo.Connect(ctx, opt)
+	db, err := gorm.Open(postgres.Open(dsn.String()), &gorm.Config{})
 	if err != nil {
-		return nil, errors.New("Database: Cannot connect to DB")
+		return nil, errors.New(constants.UNABLE_TO_DO_ACTION + "connect-to-database")
 	}
 
-	// Check the connection
-	err = client.Ping(ctx, nil)
-	if err != nil {
-		return nil, errors.New("Database: Lost the connection to DB")
-	}
+	fmt.Println("Successfully connected!")
 
-	db := client.Database("newRatingMovies")
-	usersCollection := db.Collection("users")
-	moviesCollection := db.Collection("movies")
-
-	// defer func() {
-	// 	if err := client.Disconnect(ctx); err != nil {
-	// 		fmt.Println("Error:", err)
-	// 	}
-	// }()
-
-	fmt.Println("Connected to database")
-
-	return &Database{
-		// Client: client,
-		Users:  usersCollection,
-		Movies: moviesCollection,
-	}, nil
+	return db, nil
 }
-
-// func CloseConnection(client *mongo.Client) error {
-// 	if client == nil {
-// 		return errors.New("no connection to disconnect")
-// 	}
-
-// 	err := client.Disconnect(context.TODO())
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	// TODO optional you can log your closed MongoDB client
-// 	fmt.Println("Connection to MongoDB closed.")
-
-// 	return nil
-// }

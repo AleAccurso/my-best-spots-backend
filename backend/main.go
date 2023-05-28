@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"new-rating-movies-go-backend/controllers"
-	db "new-rating-movies-go-backend/database"
-	middlewares "new-rating-movies-go-backend/middelwares"
-	"new-rating-movies-go-backend/repositories"
-	"new-rating-movies-go-backend/routers"
-	"new-rating-movies-go-backend/services"
-	"new-rating-movies-go-backend/usecases"
+	"my-best-spots-backend/controllers"
+	db "my-best-spots-backend/database"
+	middlewares "my-best-spots-backend/middelwares"
+	"my-best-spots-backend/repositories"
+	"my-best-spots-backend/routers"
+	"my-best-spots-backend/services"
+	"my-best-spots-backend/usecases"
 
 	"github.com/gin-gonic/gin"
 )
@@ -51,8 +51,6 @@ func run() error {
 	if err := router.Run(); err != nil {
 		return fmt.Errorf("router: %s", err)
 	}
-
-	// defer db.CloseConnection(database.Client)
 
 	return nil
 }
