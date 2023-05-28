@@ -20,7 +20,7 @@ func InitialiseCategoryRepository(db *gorm.DB) CategoryRepository {
 	}
 }
 
-func (repository CategoryRepository) GetCategories(context context.Context, page *int, size *int) ([]models.Category, error) {
+func (repository CategoryRepository) GetCategories(context context.Context, page *int, size *int, categoryKeyFilter *string) ([]models.Category, error) {
 	var categories []models.Category
 
 	query := repository.database
@@ -30,10 +30,18 @@ func (repository CategoryRepository) GetCategories(context context.Context, page
 		query = query.Limit(*size).Offset(*page * *size)
 	}
 
+	// Category Key Filter
+	if categoryKeyFilter != nil {
+		query = query.Where("category_key = ?", *categoryKeyFilter)
+	}
+
+	// Run query
 	err := query.Find(&categories).Error
 	if err != nil {
 		return nil, err
 	}
+
+
 
 	return categories, nil
 }
@@ -51,9 +59,18 @@ func (repository CategoryRepository) GetCategoryById(context context.Context, ca
 	return &category, nil
 }
 
-func (repository CategoryRepository) CountCategories(context context.Context) (*int64, error) {
+func (repository CategoryRepository) CountCategories(context context.Context, categoryKeyFilter *string) (*int64, error) {
 	var count int64
-	err := repository.database.Model(&models.Category{}).Count(&count).Error
+
+	query := repository.database
+
+	// Category Key Filter
+	if categoryKeyFilter != nil {
+		query = query.Where("category_key = ?", *categoryKeyFilter)
+	}
+
+	// Run query
+	err := query.Model(&models.Category{}).Count(&count).Error
 	if err != nil {
 		return nil, errors.New(constants.SERVER_ERROR)
 	}

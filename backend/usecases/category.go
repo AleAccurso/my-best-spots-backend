@@ -20,7 +20,7 @@ func InitialiseCategoryUsecase(repositories repositories.Repository) CategoryUse
 	}
 }
 
-func (usecase CategoryUsecase) GetCategories(ctx *gin.Context, page *int, size *int) (*dtos.CategoryPagingResDTO, error) {
+func (usecase CategoryUsecase) GetCategories(ctx *gin.Context, page *int, size *int, categoryKeyFilter *string) (*dtos.CategoryPagingResDTO, error) {
 	
 	var nbPages, pageInt, sizeInt int8
 	
@@ -28,7 +28,7 @@ func (usecase CategoryUsecase) GetCategories(ctx *gin.Context, page *int, size *
 		pageInt = 1
 	}
 	
-	categoriesCount, err := usecase.repositories.CategoryRepository.CountCategories(ctx)
+	categoriesCount, err := usecase.repositories.CategoryRepository.CountCategories(ctx, categoryKeyFilter)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (usecase CategoryUsecase) GetCategories(ctx *gin.Context, page *int, size *
 		pageInt = nbPages
 	}
 
-	users, err := usecase.repositories.CategoryRepository.GetCategories(ctx, page, size)
+	users, err := usecase.repositories.CategoryRepository.GetCategories(ctx, page, size, categoryKeyFilter)
 	if err != nil {
 		return nil, err
 	}

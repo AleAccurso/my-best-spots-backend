@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/samber/lo"
 )
 
 type CategoryController struct {
@@ -22,9 +23,9 @@ func InitialiseCategoryController(usecases usecases.Usecase) CategoryController 
 func (controller CategoryController) GetCategories(c *gin.Context) {
 
 	var pagePtr, sizePtr *int
+	var categoryKeyFilter *string
 
 	page := c.Query("page")
-
 	if page != "" {
 		parsed_page, err := strconv.Atoi(page)
 		if err != nil {
@@ -35,7 +36,6 @@ func (controller CategoryController) GetCategories(c *gin.Context) {
 	}
 
 	size := c.Query("size")
-
 	if size != "" {
 		parsed_size, err := strconv.Atoi(size)
 		if err != nil {
@@ -45,7 +45,13 @@ func (controller CategoryController) GetCategories(c *gin.Context) {
 		}
 	}
 
-	categories, err := controller.usecases.CategoryUsecase.GetCategories(c, pagePtr, sizePtr)
+	categoryKey := c.Query("category_key")
+	if categoryKey != "" {
+		categoryKeyFilter = lo.ToPtr(categoryKey)
+	}
+
+
+	categories, err := controller.usecases.CategoryUsecase.GetCategories(c, pagePtr, sizePtr, categoryKeyFilter)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, err.Error())
 		return
