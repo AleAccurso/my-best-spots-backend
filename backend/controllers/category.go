@@ -70,7 +70,7 @@ func (controller CategoryController) GetCategoryById(c *gin.Context) {
 
 	categoryUUID, err := uuid.Parse(categoryId)
 	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.BAD_PARAMS+"CategoryId"))
+		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.BAD_PARAMS+"category_id"))
 		return
 	}
 

@@ -9,11 +9,11 @@ services:
     image: database
     container_name: database
     environment:
-      - POSTGRES_Category=${POSTGRES_Category}
+      - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB_NAME=${POSTGRES_DB_NAME}
       - POSTGRES_HOST_AUTH_METHOD=password
-      - POSTGRES_DOCKER_Category=${POSTGRES_DOCKER_Category}
+      - POSTGRES_DOCKER_USER=${POSTGRES_DOCKER_USER}
       - POSTGRES_DOCKER_PASSWORD=${POSTGRES_DOCKER_PASSWORD}
       - POSTGRES_DOCKER_DB_NAME=${POSTGRES_DOCKER_DB_NAME}
     ports:
@@ -24,7 +24,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "sh -c 'pg_isready -U ${POSTGRES_DOCKER_Category} -d ${POSTGRES_DOCKER_DB_NAME}'",
+          "sh -c 'pg_isready -U ${POSTGRES_DOCKER_USER} -d ${POSTGRES_DOCKER_DB_NAME}'",
         ]
       interval: 10s
       timeout: 3s
