@@ -48,7 +48,7 @@ func (router Router) Run() error {
 	// Categories
 	// api.GET("/categories", router.authMiddleware.Authorize(router.controller.CategoryController.GetCategories))
 	api.GET("/categories", router.controller.CategoryController.GetCategories)
-	api.GET("/categories/:category_id", router.controller.CategoryController.GetCategoryById)
+	api.GET("/category/key/:category_key", router.controller.CategoryController.GetCategoryByKey)
 
 	// Run the engine
 	if err := router.engine.Run(":8010"); err != nil {

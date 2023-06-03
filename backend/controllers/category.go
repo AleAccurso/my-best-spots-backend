@@ -8,8 +8,6 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
-	"github.com/samber/lo"
 )
 
 type CategoryController struct {
@@ -23,7 +21,6 @@ func InitialiseCategoryController(usecases usecases.Usecase) CategoryController 
 func (controller CategoryController) GetCategories(c *gin.Context) {
 
 	var pagePtr, sizePtr *int
-	var categoryKeyFilter *string
 
 	page := c.Query("page")
 	if page != "" {
@@ -45,13 +42,7 @@ func (controller CategoryController) GetCategories(c *gin.Context) {
 		}
 	}
 
-	categoryKey := c.Query("category_key")
-	if categoryKey != "" {
-		categoryKeyFilter = lo.ToPtr(categoryKey)
-	}
-
-
-	categories, err := controller.usecases.CategoryUsecase.GetCategories(c, pagePtr, sizePtr, categoryKeyFilter)
+	categories, err := controller.usecases.CategoryUsecase.GetCategories(c, pagePtr, sizePtr)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, err.Error())
 		return
@@ -60,21 +51,15 @@ func (controller CategoryController) GetCategories(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, categories)
 }
 
-func (controller CategoryController) GetCategoryById(c *gin.Context) {
+func (controller CategoryController) GetCategoryByKey(c *gin.Context) {
 
-	categoryId := c.Param("category_id")
-	if categoryId == "" {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.MISSING_PARAM+"category_id").Error())
+	categoryKey := c.Param("category_key")
+	if categoryKey == "" {
+		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.MISSING_PARAM+"category_key").Error())
 		return
 	}
 
-	categoryUUID, err := uuid.Parse(categoryId)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.BAD_PARAMS+"category_id"))
-		return
-	}
-
-	category, err := controller.usecases.CategoryUsecase.GetCategoryById(c, categoryUUID)
+	category, err := controller.usecases.CategoryUsecase.GetCategoryByKey(c, categoryKey)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, err.Error())
 		return

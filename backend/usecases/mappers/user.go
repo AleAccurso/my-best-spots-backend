@@ -9,9 +9,9 @@ func CategoryModelToResDTO(model models.Category) dtos.CategoryResDTO {
 	return dtos.CategoryResDTO{
 		Id: model.Id,
 
-		CategoryName: model.CategoryName,
-		CategoryKey:  model.CategoryKey,
-		IconUrl:      model.IconUrl,
+		CategoryName:   model.CategoryName,
+		CategoryKey:    model.CategoryKey,
+		SvgIconContent: string(model.SvgIconContent),
 	}
 }
 

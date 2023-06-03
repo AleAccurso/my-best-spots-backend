@@ -6,7 +6,6 @@ import (
 	"my-best-spots-backend/constants"
 	"my-best-spots-backend/models"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -20,7 +19,7 @@ func InitialiseCategoryRepository(db *gorm.DB) CategoryRepository {
 	}
 }
 
-func (repository CategoryRepository) GetCategories(context context.Context, page *int, size *int, categoryKeyFilter *string) ([]models.Category, error) {
+func (repository CategoryRepository) GetCategories(context context.Context, page *int, size *int) ([]models.Category, error) {
 	var categories []models.Category
 
 	query := repository.database
@@ -30,28 +29,21 @@ func (repository CategoryRepository) GetCategories(context context.Context, page
 		query = query.Limit(*size).Offset(*page * *size)
 	}
 
-	// Category Key Filter
-	if categoryKeyFilter != nil {
-		query = query.Where("category_key = ?", *categoryKeyFilter)
-	}
-
 	// Run query
 	err := query.Find(&categories).Error
 	if err != nil {
 		return nil, err
 	}
 
-
-
 	return categories, nil
 }
 
-func (repository CategoryRepository) GetCategoryById(context context.Context, categoryId uuid.UUID) (*models.Category, error) {
+func (repository CategoryRepository) GetCategoryByKey(context context.Context, categoryKey string) (*models.Category, error) {
 	var category models.Category
 
 	query := repository.database
 
-	err := query.Where("id = ?", categoryId.String()).Take(&category).Error
+	err := query.Where("category_key = ?", categoryKey).Take(&category).Error
 	if err != nil {
 		return nil, errors.New(constants.SERVER_ERROR)
 	}
@@ -59,15 +51,10 @@ func (repository CategoryRepository) GetCategoryById(context context.Context, ca
 	return &category, nil
 }
 
-func (repository CategoryRepository) CountCategories(context context.Context, categoryKeyFilter *string) (*int64, error) {
+func (repository CategoryRepository) CountCategories(context context.Context) (*int64, error) {
 	var count int64
 
 	query := repository.database
-
-	// Category Key Filter
-	if categoryKeyFilter != nil {
-		query = query.Where("category_key = ?", *categoryKeyFilter)
-	}
 
 	// Run query
 	err := query.Model(&models.Category{}).Count(&count).Error
