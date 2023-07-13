@@ -46,9 +46,14 @@ func (router Router) Run() error {
 	// api.GET("/logout", router.authMiddleware.Authorize(router.controller.AuthController.Logout))
 
 	// Categories
-	// api.GET("/categories", router.authMiddleware.Authorize(router.controller.CategoryController.GetCategories))
 	api.GET("/categories", router.controller.CategoryController.GetCategories)
-	api.GET("/category/key/:category_key", router.controller.CategoryController.GetCategoryByKey)
+	api.GET("/category/:category_key", router.controller.CategoryController.GetCategoryByKey)
+
+	// Spot
+	api.GET("/spots", router.controller.SpotController.GetAvailableSpots)
+	api.GET("/spots/:spot_id", router.controller.SpotController.GetSpotById)
+	api.GET("/spots/:spot_id/address/:address_id", router.controller.SpotController.GetSpotAddress)
+	api.POST("/spots", router.controller.SpotController.AddSpot)
 
 	// Run the engine
 	if err := router.engine.Run(":8010"); err != nil {

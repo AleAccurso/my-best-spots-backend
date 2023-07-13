@@ -11,8 +11,10 @@ type Repository struct {
 func Initialise(database *gorm.DB) Repository {
 	return Repository{
 		RepositoryBase: RepositoryBase{
-			CategoryRepository: InitialiseCategoryRepository(database),
+			AddressRepository: InitialiseAddressRepository(database),
 			AuthRepository:     InitialiseAuthRepository(database),
+			CategoryRepository: InitialiseCategoryRepository(database),
+			SpotRepository: InitialiseSpotRepository(database),
 		},
 	}
 }
