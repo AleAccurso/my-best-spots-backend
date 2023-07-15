@@ -8,13 +8,13 @@ import (
 type Controller struct {
 	CategoryController CategoryController
 	AuthController     AuthController
-	SpotController SpotController
+	SpotController     SpotController
 }
 
 func Initialise(usecases usecases.Usecase, services services.Service) Controller {
 	return Controller{
 		CategoryController: InitialiseCategoryController(usecases),
 		AuthController:     InitialiseAuthController(usecases, services),
-		SpotController: InitialiseSpotController(usecases),
+		SpotController:     InitialiseSpotController(usecases),
 	}
 }

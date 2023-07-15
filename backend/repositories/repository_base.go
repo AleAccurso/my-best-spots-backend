@@ -1,8 +1,8 @@
 package repositories
 
 type RepositoryBase struct {
-	AddressRepository IAddressRepository
+	AddressRepository  IAddressRepository
 	AuthRepository     IAuthRepository
 	CategoryRepository ICategoryRepository
-	SpotRepository ISpotRepository
+	SpotRepository     ISpotRepository
 }

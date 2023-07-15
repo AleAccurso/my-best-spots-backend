@@ -50,7 +50,7 @@ func (usecase CategoryUsecase) GetCategories(ctx *gin.Context, page *int, size *
 		pageInt = nbPages
 	}
 
-	users, err := usecase.repositories.CategoryRepository.GetCategories(ctx, page, size)
+	categoryEntities, err := usecase.repositories.CategoryRepository.GetCategories(ctx, page, size)
 	if err != nil {
 		return nil, err
 	}
@@ -60,19 +60,19 @@ func (usecase CategoryUsecase) GetCategories(ctx *gin.Context, page *int, size *
 		Size:      sizeInt,
 		NbPages:   nbPages,
 		NbResults: int16(*categoriesCount),
-		Data:      mappers.CategoryModelsToResDTOs(users),
+		Data:      mappers.CategoryEntitiesToResDTOs(categoryEntities),
 	}
 
 	return &pagingCategories, nil
 }
 
 func (usecase CategoryUsecase) GetCategoryByKey(ctx *gin.Context, categoryKey string) (*dtos.CategoryResDTO, error) {
-	category, err := usecase.repositories.CategoryRepository.GetCategoryByKey(ctx, categoryKey)
+	categoryEntity, err := usecase.repositories.CategoryRepository.GetCategoryByKey(ctx, categoryKey)
 	if err != nil {
 		return nil, err
 	}
 
-	categoryDTO := mappers.CategoryModelToResDTO(*category)
+	categoryDTO := mappers.CategoryEntityToResDTO(*categoryEntity)
 
 	return &categoryDTO, nil
 }

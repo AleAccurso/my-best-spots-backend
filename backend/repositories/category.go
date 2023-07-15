@@ -4,7 +4,9 @@ import (
 	"context"
 	"errors"
 	"my-best-spots-backend/constants"
+	"my-best-spots-backend/entities"
 	"my-best-spots-backend/models"
+	"my-best-spots-backend/repositories/mappers"
 
 	"gorm.io/gorm"
 )
@@ -19,7 +21,7 @@ func InitialiseCategoryRepository(db *gorm.DB) CategoryRepository {
 	}
 }
 
-func (repository CategoryRepository) GetCategories(context context.Context, page *int, size *int) ([]models.Category, error) {
+func (repository CategoryRepository) GetCategories(context context.Context, page *int, size *int) ([]entities.CategoryEntity, error) {
 	var categories []models.Category
 
 	query := repository.database
@@ -35,10 +37,10 @@ func (repository CategoryRepository) GetCategories(context context.Context, page
 		return nil, err
 	}
 
-	return categories, nil
+	return mappers.CategoryModelsToEntities(categories), nil
 }
 
-func (repository CategoryRepository) GetCategoryByKey(context context.Context, categoryKey string) (*models.Category, error) {
+func (repository CategoryRepository) GetCategoryByKey(context context.Context, categoryKey string) (*entities.CategoryEntity, error) {
 	var category models.Category
 
 	query := repository.database
@@ -48,7 +50,9 @@ func (repository CategoryRepository) GetCategoryByKey(context context.Context, c
 		return nil, errors.New(constants.SERVER_ERROR)
 	}
 
-	return &category, nil
+	categoryEntity := mappers.CategoryModelToEntity(category)
+
+	return &categoryEntity, nil
 }
 
 func (repository CategoryRepository) CountCategories(context context.Context) (*int64, error) {

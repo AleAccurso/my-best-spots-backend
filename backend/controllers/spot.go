@@ -20,7 +20,7 @@ func InitialiseSpotController(usecases usecases.Usecase) SpotController {
 	return SpotController{usecases: usecases}
 }
 
-func (controller SpotController) GetAvailableSpots(c *gin.Context){
+func (controller SpotController) GetAvailableSpots(c *gin.Context) {
 	var pagePtr, sizePtr *int
 
 	page := c.Query("page")
@@ -52,7 +52,7 @@ func (controller SpotController) GetAvailableSpots(c *gin.Context){
 	c.IndentedJSON(http.StatusOK, spots)
 }
 
-func (controller SpotController) GetSpotById(c *gin.Context){
+func (controller SpotController) GetSpotById(c *gin.Context) {
 	spotId := c.Param("spot_id")
 	if spotId == "" {
 		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.MISSING_PARAM+"spot_id").Error())
@@ -74,7 +74,7 @@ func (controller SpotController) GetSpotById(c *gin.Context){
 	c.IndentedJSON(http.StatusOK, spot)
 }
 
-func (controller SpotController) GetSpotAddress(c *gin.Context){
+func (controller SpotController) GetSpotAddress(c *gin.Context) {
 	spotId := c.Param("spot_id")
 	if spotId == "" {
 		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.MISSING_PARAM+"spot_id").Error())
@@ -108,7 +108,7 @@ func (controller SpotController) GetSpotAddress(c *gin.Context){
 	c.IndentedJSON(http.StatusOK, address)
 }
 
-func (controller SpotController) AddSpot(c *gin.Context){
+func (controller SpotController) AddSpot(c *gin.Context) {
 	var spotReqCreateDTO dtos.SpotReqCreateDTO
 	if err := c.ShouldBindJSON(&spotReqCreateDTO); err != nil {
 		c.IndentedJSON(http.StatusBadRequest, err.Error())

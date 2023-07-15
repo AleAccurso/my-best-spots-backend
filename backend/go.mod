@@ -8,7 +8,6 @@ require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/joho/godotenv v1.5.1
 	github.com/samber/lo v1.38.1
-	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 	gorm.io/gorm v1.25.1
 )
 
@@ -17,6 +16,7 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.3.1 // indirect
 	golang.org/x/crypto v0.9.0 // indirect
+	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1 // indirect
 )
 
 require (
