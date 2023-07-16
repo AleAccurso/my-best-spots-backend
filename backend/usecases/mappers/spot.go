@@ -21,10 +21,23 @@ func SpotReqCreateToSpotAddressEntities(spot dtos.SpotReqCreateDTO) (entities.Sp
 		Name:         spot.Name,
 		Latitude:     spot.Location.Latitude,
 		Longitude:    spot.Location.Longitude,
-		AccessibleBy: getMinimumRoleToAccessSpot(spot),
+		MinAuthGroup: getMinimumRoleToAccessSpot(spot),
 	}
 
 	return spotEntity, addressEntity
+}
+
+func SpotCreateEntityToDTO(entity entities.SpotEntity) dtos.SpotResDTO {
+	return dtos.SpotResDTO{
+		Id:           entity.Id,
+		CreatedAt:    entity.CreatedAt,
+		Name:         entity.Name,
+		CategoryId:   entity.CategoryId,
+		AddressId:    entity.AddressId,
+		Latitude:     entity.Latitude,
+		Longitude:    entity.Longitude,
+		MinAuthGroup: entity.MinAuthGroup,
+	}
 }
 
 func getMinimumRoleToAccessSpot(spot dtos.SpotReqCreateDTO) enums.SpotAccessRight {

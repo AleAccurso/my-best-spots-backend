@@ -18,6 +18,6 @@ type SpotEntity struct {
 	AddressId    uuid.UUID             `bson:"address_id,omitempty" json:"address_id"`
 	Latitude     float32               `bson:"latitude,omitempty" json:"latitude"`
 	Longitude    float32               `bson:"longitude,omitempty" json:"longitude"`
-	AccessibleBy enums.SpotAccessRight `bson:"accessible_by,omitempty" json:"accessible_by"`
+	MinAuthGroup enums.SpotAccessRight `bson:"min_auth_group,omitempty" json:"min_auth_group"`
 	ArchivedAt   *time.Time            `bson:"archived_at,omitempty" json:"archived_at"`
 }

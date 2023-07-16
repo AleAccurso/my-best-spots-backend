@@ -45,6 +45,9 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 	addressEntityFromDB, err := usecase.repositories.AddressRepository.CheckAddressAlreadyExists(c, addressEntity)
 	if err != nil {
 		addressEntityFromDB, err = usecase.repositories.AddressRepository.InsertAddress(c, addressEntity)
+		if err != nil {
+			return nil, err
+		}
 	}
 	spotEntity.AddressId = addressEntityFromDB.Id
 
@@ -54,5 +57,7 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 		return nil, err
 	}
 
-	return nil, nil
+	newSpotDTO := mappers.SpotCreateEntityToDTO(*newSpotEntity)
+
+	return &newSpotDTO, nil
 }

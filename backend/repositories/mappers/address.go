@@ -20,3 +20,15 @@ func AddressModelToEntity(model models.Address) entities.AddressEntity {
 		CountryCode:  model.CountryCode,
 	}
 }
+
+func AddressEntityToModel(entity entities.AddressEntity) models.Address {
+	return models.Address{
+		Street:       entity.Street,
+		StreetNumber: entity.StreetNumber,
+		PostalCode:   entity.PostalCode,
+		City:         entity.City,
+		Region:       entity.Region,
+		CountryName:  entity.CountryName,
+		CountryCode:  entity.CountryCode,
+	}
+}

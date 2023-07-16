@@ -1,5 +1,7 @@
 package enums
 
+import "strings"
+
 type SpotAccessRight string
 
 const (
@@ -8,8 +10,15 @@ const (
 	LOGGED_USERS SpotAccessRight = "LOGGED_USERS"
 )
 
-var SpotAccessRights = []SpotAccessRight{
-	ADMIN,
-	EVERYONE,
-	LOGGED_USERS,
+var (
+    spotAccessRightsMap = map[string]SpotAccessRight{
+        "ADMIN":   ADMIN,
+        "EVERYONE": EVERYONE,
+        "LOGGED_USERS": LOGGED_USERS,
+    }
+)
+
+func ParseToSpotAccessRight(str string) (SpotAccessRight, bool) {
+	spotAccessRight, ok := spotAccessRightsMap[strings.ToUpper(str)]
+    return spotAccessRight, ok
 }
