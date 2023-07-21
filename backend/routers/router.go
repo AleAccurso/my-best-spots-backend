@@ -52,7 +52,6 @@ func (router Router) Run() error {
 	// Spot
 	api.GET("/spots", router.controller.SpotController.GetAvailableSpots)
 	api.GET("/spots/:spot_id", router.controller.SpotController.GetSpotById)
-	api.GET("/spots/:spot_id/address/:address_id", router.controller.SpotController.GetSpotAddress)
 	api.POST("/spots", router.controller.SpotController.AddSpot)
 
 	// Run the engine

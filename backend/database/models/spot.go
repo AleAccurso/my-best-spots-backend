@@ -19,5 +19,5 @@ type Spot struct {
 	Category     Category
 	Latitude     float32 `json:"latitude" gorm:"min:-90;max:90;not null"`
 	Longitude    float32 `json:"longitude" gorm:"min:-180;max:180;not null"`
-	MinAuthGroup string  `json:"min_auth_group" gorm:"type:varchar(11);not null"`
+	MinAuthGroup string  `json:"min_auth_group" gorm:"type:varchar(12);not null"`
 }

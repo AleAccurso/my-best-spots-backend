@@ -1,6 +1,7 @@
 package usecases
 
 import (
+	"errors"
 	"my-best-spots-backend/dtos"
 	"my-best-spots-backend/repositories"
 	"my-best-spots-backend/usecases/mappers"
@@ -27,11 +28,13 @@ func (usecase SpotUsecase) GetSpotById(c *gin.Context, spotId uuid.UUID) (*dtos.
 	return nil, nil
 }
 
-func (usecase SpotUsecase) GetSpotAddress(c *gin.Context, spotUUID uuid.UUID, addressUUID uuid.UUID) (*dtos.SpotResDTO, error) {
-	return nil, nil
-}
-
 func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (*dtos.SpotResDTO, error) {
+	// Validate location
+	if spot.Location.Latitude < -90 || spot.Location.Latitude > 90 || spot.Location.Longitude < -180 || spot.Location.Longitude > 180 {
+		return nil, errors.New("invalid Location")
+	}
+
+	// Map spot creation request to Entity
 	spotEntity, addressEntity := mappers.SpotReqCreateToSpotAddressEntities(spot)
 
 	// Get Category
@@ -42,14 +45,14 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 	spotEntity.CategoryId = categoryEntity.Id
 
 	// Insert Address if needed
-	addressEntityFromDB, err := usecase.repositories.AddressRepository.CheckAddressAlreadyExists(c, addressEntity)
+	newSpotAddressEntity, err := usecase.repositories.AddressRepository.CheckAddressAlreadyExists(c, addressEntity)
 	if err != nil {
-		addressEntityFromDB, err = usecase.repositories.AddressRepository.InsertAddress(c, addressEntity)
+		newSpotAddressEntity, err = usecase.repositories.AddressRepository.InsertAddress(c, addressEntity)
 		if err != nil {
 			return nil, err
 		}
 	}
-	spotEntity.AddressId = addressEntityFromDB.Id
+	spotEntity.AddressId = newSpotAddressEntity.Id
 
 	// Call repository
 	newSpotEntity, err := usecase.repositories.SpotRepository.InsertSpot(c, spotEntity)
@@ -58,6 +61,7 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 	}
 
 	newSpotDTO := mappers.SpotCreateEntityToDTO(*newSpotEntity)
+	newSpotDTO.Address = mappers.AddressEntityToResDTO(*newSpotAddressEntity)
 
 	return &newSpotDTO, nil
 }

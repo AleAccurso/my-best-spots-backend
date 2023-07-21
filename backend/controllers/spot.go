@@ -74,40 +74,6 @@ func (controller SpotController) GetSpotById(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, spot)
 }
 
-func (controller SpotController) GetSpotAddress(c *gin.Context) {
-	spotId := c.Param("spot_id")
-	if spotId == "" {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.MISSING_PARAM+"spot_id").Error())
-		return
-	}
-
-	spotUUID, err := uuid.Parse(spotId)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.BAD_PARAMS+"spot_id").Error())
-		return
-	}
-
-	addressId := c.Param("address_id")
-	if spotId == "" {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.MISSING_PARAM+"address_id").Error())
-		return
-	}
-
-	addressUUID, err := uuid.Parse(addressId)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, errors.New(constants.BAD_PARAMS+"address_id").Error())
-		return
-	}
-
-	address, err := controller.usecases.SpotUsecase.GetSpotAddress(c, spotUUID, addressUUID)
-	if err != nil {
-		c.IndentedJSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	c.IndentedJSON(http.StatusOK, address)
-}
-
 func (controller SpotController) AddSpot(c *gin.Context) {
 	var spotReqCreateDTO dtos.SpotReqCreateDTO
 	if err := c.ShouldBindJSON(&spotReqCreateDTO); err != nil {
