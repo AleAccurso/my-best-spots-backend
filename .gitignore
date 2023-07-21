@@ -2,5 +2,3 @@ __debug_bin
 .DS_Store
 **/*.env
 **/*.json
-**/*.sql
-**/*.sh
