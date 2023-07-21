@@ -7,7 +7,7 @@ import (
 type CategoryResDTO struct {
 	Id uuid.UUID `bson:"id,omitempty" json:"id"`
 
-	CategoryName   string `bson:"category_name,omitempty" json:"category_name"`
-	CategoryKey    string `bson:"category_key,omitempty" json:"category_key"`
-	SvgIconContent string `bson:"svg_icon_content,omitempty" json:"svg_icon_content"`
+	CategoryName string `bson:"category_name,omitempty" json:"category_name"`
+	CategoryKey  string `bson:"category_key,omitempty" json:"category_key"`
+	IconUrl      string `bson:"icon_url,omitempty" json:"icon_url"`
 }

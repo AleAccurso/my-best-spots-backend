@@ -12,7 +12,7 @@ type CategoryEntity struct {
 	UpdatedAt time.Time  `bson:"updated_at,omitempty" json:"updated_at"`
 	DeletedAt *time.Time `bson:"deleted_at,omitempty" json:"deleted_at"`
 
-	CategoryName   string `bson:"category_name,omitempty" json:"category_name"`
-	CategoryKey    string `bson:"category_key,omitempty" json:"category_key"`
-	SvgIconContent []byte `bson:"svg_icon_content,omitempty" json:"svg_icon_content"`
+	CategoryName string `bson:"category_name,omitempty" json:"category_name"`
+	CategoryKey  string `bson:"category_key,omitempty" json:"category_key"`
+	IconUrl      string `bson:"icon_url,omitempty" json:"icon_url"`
 }

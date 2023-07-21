@@ -1,8 +1,8 @@
 package mappers
 
 import (
+	"my-best-spots-backend/database/models"
 	"my-best-spots-backend/entities"
-	"my-best-spots-backend/models"
 )
 
 func AddressModelToEntity(model models.Address) entities.AddressEntity {

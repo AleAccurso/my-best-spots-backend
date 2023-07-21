@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"my-best-spots-backend/constants"
+	"my-best-spots-backend/database/models"
 	"my-best-spots-backend/entities"
-	"my-best-spots-backend/models"
 	"my-best-spots-backend/repositories/mappers"
 
 	"gorm.io/gorm"

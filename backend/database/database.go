@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"my-best-spots-backend/constants"
+	"my-best-spots-backend/database/models"
 	"net/url"
 	"os"
 
@@ -43,7 +44,11 @@ func Initialise() (*gorm.DB, error) {
 		return nil, errors.New(constants.UNABLE_TO_DO_ACTION + "connect-to-database")
 	}
 
+	db.AutoMigrate(&models.Address{}, &models.Category{}, &models.Spot{}, &models.User{})
+
 	fmt.Println("Successfully connected!")
+
+	Seed(db)
 
 	return db, nil
 }

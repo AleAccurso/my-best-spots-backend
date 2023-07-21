@@ -9,9 +9,9 @@ func CategoryEntityToResDTO(entity entities.CategoryEntity) dtos.CategoryResDTO 
 	return dtos.CategoryResDTO{
 		Id: entity.Id,
 
-		CategoryName:   entity.CategoryName,
-		CategoryKey:    entity.CategoryKey,
-		SvgIconContent: string(entity.SvgIconContent),
+		CategoryName: entity.CategoryName,
+		CategoryKey:  entity.CategoryKey,
+		IconUrl:      entity.IconUrl,
 	}
 }
 

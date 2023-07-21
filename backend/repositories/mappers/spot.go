@@ -2,12 +2,12 @@ package mappers
 
 import (
 	"errors"
+	"my-best-spots-backend/database/models"
 	"my-best-spots-backend/entities"
 	"my-best-spots-backend/enums"
-	"my-best-spots-backend/models"
 )
 
-func SpotModelToEntity(model models.Spot) (*entities.SpotEntity, error){
+func SpotModelToEntity(model models.Spot) (*entities.SpotEntity, error) {
 	minAuthGroup, ok := enums.ParseToSpotAccessRight(model.MinAuthGroup)
 	if !ok {
 		return nil, errors.New("")
