@@ -2,6 +2,7 @@ package usecases
 
 import (
 	"errors"
+	"math"
 	"my-best-spots-backend/dtos"
 	"my-best-spots-backend/repositories"
 	"my-best-spots-backend/usecases/mappers"
@@ -20,8 +21,50 @@ func InitialiseSpotUsecase(repositories repositories.Repository) SpotUsecase {
 	}
 }
 
-func (usecase SpotUsecase) GetAvailableSpots(c *gin.Context, page *int, size *int) (*dtos.SpotPagingResDTO, error) {
-	return nil, nil
+func (usecase SpotUsecase) GetAvailableSpots(c *gin.Context, page *int, size *int) (*dtos.SpotPreloadedPagingResDTO, error) {
+
+	var nbPages, pageInt, sizeInt int8
+
+	if page == nil {
+		pageInt = 1
+	}
+
+	spotEntities, err := usecase.repositories.SpotRepository.GetSpots(c, page, size)
+	if err != nil {
+		return nil, err
+	}
+
+	if size != nil {
+		nbPages = int8(math.Ceil(float64(len(spotEntities)) / float64(sizeInt)))
+	} else {
+		nbPages = 1
+		if page == nil {
+			sizeInt = int8(len(spotEntities))
+		}
+	}
+
+	if nbPages == 0 {
+		nbPages = 1
+	}
+
+	if pageInt > nbPages-1 {
+		pageInt = nbPages
+	}
+
+
+	spotDTOs := mappers.SpotPreloadedEntitiesToPreloadedResDTOs(spotEntities)
+
+	pagingSpots := dtos.SpotPreloadedPagingResDTO{
+		Page:      pageInt,
+		Size:      sizeInt,
+		NbPages:   nbPages,
+		NbResults: int16(len(spotDTOs)),
+		Data:      spotDTOs,
+	}
+
+	return &pagingSpots, nil
+
+
 }
 
 func (usecase SpotUsecase) GetSpotById(c *gin.Context, spotId uuid.UUID) (*dtos.SpotResDTO, error) {

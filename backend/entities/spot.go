@@ -8,16 +8,31 @@ import (
 )
 
 type SpotEntity struct {
-	Id        uuid.UUID  `bson:"id,omitempty" json:"id"`
-	CreatedAt time.Time  `bson:"created_at,omitempty" json:"created_at"`
-	UpdatedAt time.Time  `bson:"updated_at,omitempty" json:"updated_at"`
+	Id        uuid.UUID  `json:"id"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `bson:"deleted_at,omitempty" json:"deleted_at"`
 
-	Name         string                `bson:"name,omitempty" json:"name"`
-	CategoryId   uuid.UUID             `bson:"category_id,omitempty" json:"category_id"`
-	AddressId    uuid.UUID             `bson:"address_id,omitempty" json:"address_id"`
-	Latitude     float32               `bson:"latitude,omitempty" json:"latitude"`
-	Longitude    float32               `bson:"longitude,omitempty" json:"longitude"`
-	MinAuthGroup enums.SpotAccessRight `bson:"min_auth_group,omitempty" json:"min_auth_group"`
-	ArchivedAt   *time.Time            `bson:"archived_at,omitempty" json:"archived_at"`
+	Name         string                `json:"name"`
+	CategoryId   uuid.UUID             `json:"category_id"`
+	AddressId    uuid.UUID             `json:"address_id"`
+	Latitude     float32               `json:"latitude"`
+	Longitude    float32               `json:"longitude"`
+	MinAuthGroup enums.SpotAccessRight `json:"min_auth_group"`
+	ArchivedAt   *time.Time            `json:"archived_at"`
+}
+
+type SpotPreloadedEntity struct {
+	Id        uuid.UUID  `json:"id"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at"`
+
+	Name         string                `json:"name"`
+	Category   CategoryEntity             `json:"category"`
+	Address    AddressEntity             `json:"address"`
+	Latitude     float32               `json:"latitude"`
+	Longitude    float32               `json:"longitude"`
+	MinAuthGroup enums.SpotAccessRight `json:"min_auth_group"`
+	ArchivedAt   *time.Time            `json:"archived_at"`
 }

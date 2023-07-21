@@ -8,7 +8,7 @@ import (
 )
 
 type ISpotUsecase interface {
-	GetAvailableSpots(ctx *gin.Context, page *int, size *int) (*dtos.SpotPagingResDTO, error)
+	GetAvailableSpots(ctx *gin.Context, page *int, size *int) (*dtos.SpotPreloadedPagingResDTO, error)
 	GetSpotById(c *gin.Context, spotId uuid.UUID) (*dtos.SpotResDTO, error)
 	AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (*dtos.SpotResDTO, error)
 }

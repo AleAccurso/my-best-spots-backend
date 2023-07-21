@@ -34,3 +34,27 @@ func (repository SpotRepository) InsertSpot(context context.Context, spotEntity 
 
 	return newSpot, nil
 }
+
+func (repository SpotRepository) GetSpots(context context.Context, page *int, size *int) ([]entities.SpotPreloadedEntity, error) {
+	var spots []models.Spot
+
+	query := repository.database
+
+	// Paging
+	if page != nil && size != nil {
+		query = query.Limit(*size).Offset(*page * *size)
+	}
+
+	// Run query
+	err := query.Preload("Address").Preload("Category").Find(&spots).Error
+	if err != nil {
+		return nil, err
+	}
+
+	spotEntities, err := mappers.SpotModelsToPreloadedEntities(spots)
+	if err != nil {
+		return nil, err
+	}
+
+	return spotEntities, nil
+}

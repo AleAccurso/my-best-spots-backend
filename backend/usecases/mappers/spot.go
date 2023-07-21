@@ -27,6 +27,16 @@ func SpotReqCreateToSpotAddressEntities(spot dtos.SpotReqCreateDTO) (entities.Sp
 	return spotEntity, addressEntity
 }
 
+func getMinimumRoleToAccessSpot(spot dtos.SpotReqCreateDTO) enums.SpotAccessRight {
+	if spot.Admin {
+		return enums.ADMIN
+	}
+	if spot.LoggedUsers {
+		return enums.LOGGED_USERS
+	}
+	return enums.EVERYONE
+}
+
 func SpotCreateEntityToDTO(entity entities.SpotEntity) dtos.SpotResDTO {
 	return dtos.SpotResDTO{
 		Id:           entity.Id,
@@ -39,12 +49,25 @@ func SpotCreateEntityToDTO(entity entities.SpotEntity) dtos.SpotResDTO {
 	}
 }
 
-func getMinimumRoleToAccessSpot(spot dtos.SpotReqCreateDTO) enums.SpotAccessRight {
-	if spot.Admin {
-		return enums.ADMIN
+func SpotPreloadedEntityToPreloadedResDTO(entity entities.SpotPreloadedEntity) dtos.SpotPreloadedResDTO {
+	return dtos.SpotPreloadedResDTO{
+		Id:           entity.Id,
+		CreatedAt:    entity.CreatedAt,
+		Name:         entity.Name,
+		Category:     CategoryEntityToResDTO(entity.Category),
+		Address:      AddressEntityToResDTO(entity.Address),
+		Latitude:     entity.Latitude,
+		Longitude:    entity.Longitude,
+		MinAuthGroup: entity.MinAuthGroup,
 	}
-	if spot.LoggedUsers {
-		return enums.LOGGED_USERS
+}
+
+func SpotPreloadedEntitiesToPreloadedResDTOs(entities []entities.SpotPreloadedEntity) []dtos.SpotPreloadedResDTO {
+	dtos := make([]dtos.SpotPreloadedResDTO, len(entities))
+
+	for i, entity := range entities {
+		dtos[i] = SpotPreloadedEntityToPreloadedResDTO(entity)
 	}
-	return enums.EVERYONE
+
+	return dtos
 }
