@@ -37,11 +37,13 @@ func getMinimumRoleToAccessSpot(spot dtos.SpotReqCreateDTO) enums.SpotAccessRigh
 	return enums.EVERYONE
 }
 
-func SpotCreateEntityToDTO(entity entities.SpotEntity) dtos.SpotResDTO {
-	return dtos.SpotResDTO{
+func SpotCreateEntityToDTO(entity entities.SpotEntity) dtos.SpotCreateResDTO {
+	return dtos.SpotCreateResDTO{
 		Id:           entity.Id,
 		CreatedAt:    entity.CreatedAt,
 		Name:         entity.Name,
+		CategoryId:     entity.CategoryId,
+		AddressId:      entity.AddressId,
 		Latitude:     entity.Latitude,
 		Longitude:    entity.Longitude,
 		MinAuthGroup: entity.MinAuthGroup,

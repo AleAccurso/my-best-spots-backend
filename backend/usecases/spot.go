@@ -71,7 +71,7 @@ func (usecase SpotUsecase) GetSpotById(c *gin.Context, spotId uuid.UUID) (*dtos.
 	return nil, nil
 }
 
-func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (*dtos.SpotResDTO, error) {
+func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (*dtos.SpotCreateResDTO, error) {
 	// Validate location
 	if spot.Location.Latitude < -90 || spot.Location.Latitude > 90 || spot.Location.Longitude < -180 || spot.Location.Longitude > 180 {
 		return nil, errors.New("invalid Location")
@@ -104,8 +104,6 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 	}
 
 	newSpotDTO := mappers.SpotCreateEntityToDTO(*newSpotEntity)
-	newSpotDTO.Address = mappers.AddressEntityToResDTO(*newSpotAddressEntity)
-	newSpotDTO.Category = mappers.CategoryEntityToResDTO(*categoryEntity)
 
 	return &newSpotDTO, nil
 }
