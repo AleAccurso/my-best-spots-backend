@@ -105,6 +105,7 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 
 	newSpotDTO := mappers.SpotCreateEntityToDTO(*newSpotEntity)
 	newSpotDTO.Address = mappers.AddressEntityToResDTO(*newSpotAddressEntity)
+	newSpotDTO.Category = mappers.CategoryEntityToResDTO(*categoryEntity)
 
 	return &newSpotDTO, nil
 }

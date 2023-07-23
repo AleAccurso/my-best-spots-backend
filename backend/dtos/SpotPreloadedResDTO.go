@@ -12,7 +12,7 @@ type SpotPreloadedResDTO struct {
 	CreatedAt time.Time `json:"created_at"`
 
 	Name         string                `json:"name"`
-	Category   CategoryResDTO             `json:"category_id"`
+	Category   CategoryResDTO             `json:"category"`
 	Address      AddressResDTO         `json:"address"`
 	Latitude     float32               `json:"latitude"`
 	Longitude    float32               `json:"longitude"`

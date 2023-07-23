@@ -42,7 +42,6 @@ func SpotCreateEntityToDTO(entity entities.SpotEntity) dtos.SpotResDTO {
 		Id:           entity.Id,
 		CreatedAt:    entity.CreatedAt,
 		Name:         entity.Name,
-		CategoryId:   entity.CategoryId,
 		Latitude:     entity.Latitude,
 		Longitude:    entity.Longitude,
 		MinAuthGroup: entity.MinAuthGroup,
