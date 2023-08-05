@@ -75,8 +75,5 @@ func Seed(db *gorm.DB) {
 		},
 	}
 
-	for _, category := range categories {
-		db.Model(&models.Category{}).Create(&category)
-	}
-
+		db.Model(&models.Category{}).Create(&categories)
 }
