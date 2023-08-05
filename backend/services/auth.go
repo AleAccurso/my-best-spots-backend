@@ -11,7 +11,7 @@ type AuthService struct {
 }
 
 type JWTClaim struct {
-	Categoryname  string `json:"Categoryname"`
+	Username  string `json:"Username"`
 	Email         string `json:"email"`
 	Role          string `json:"role"`
 	EmailVerified bool   `json:"email_verified"`
@@ -24,30 +24,30 @@ func InitialiseAuthService(repository repositories.Repository) AuthService {
 	}
 }
 
-// func (service AuthService) Register(context *gin.Context, CategoryDTO dtos.CategoryReqCreateDTO) (*primitive.ObjectID, error) {
+// func (service AuthService) Register(context *gin.Context, UserDTO dtos.UserReqCreateDTO) (*primitive.ObjectID, error) {
 
-// 	Category := mappers.CategoryReqCreateDTOToModel(CategoryDTO)
+// 	User := mappers.UserReqCreateDTOToModel(UserDTO)
 
-// 	if !utils.IsEmailValid(CategoryDTO.Email) {
+// 	if !utils.IsEmailValid(UserDTO.Email) {
 // 		return nil, errors.New(constants.BAD_DATA + "email")
 // 	}
 
-// 	if !utils.IsAllowedLanguage(CategoryDTO.Language) {
+// 	if !utils.IsAllowedLanguage(UserDTO.Language) {
 // 		return nil, errors.New(constants.BAD_DATA + "language")
 // 	}
 
-// 	hashedPassword, err := service.getHash([]byte(CategoryDTO.Password))
+// 	hashedPassword, err := service.getHash([]byte(UserDTO.Password))
 // 	if err != nil {
 // 		return nil, err
 // 	}
-// 	Category.Password = *hashedPassword
+// 	User.Password = *hashedPassword
 
-// 	checkCategory, _ := service.repository.CategoryRepository.GetCategoryByEmail(context, CategoryDTO.Email)
-// 	if checkCategory != nil {
+// 	checkUser, _ := service.repository.UserRepository.GetUserByEmail(context, UserDTO.Email)
+// 	if checkUser != nil {
 // 		return nil, errors.New(constants.AUTH_EMAIL_EXISTS)
 // 	}
 
-// 	newId, err := service.repository.AuthRepository.AddCategory(context, Category)
+// 	newId, err := service.repository.AuthRepository.AddUser(context, User)
 // 	if err != nil {
 // 		return nil, err
 // 	}
@@ -58,13 +58,13 @@ func InitialiseAuthService(repository repositories.Repository) AuthService {
 // func (service AuthService) Login(context *gin.Context, loginReqDTO dtos.LoginReqDTO) (*string, error) {
 
 // 	// check if email exists and password is correct
-// 	Category, err := service.repository.CategoryRepository.GetCategoryByEmail(context, loginReqDTO.Email)
+// 	User, err := service.repository.UserRepository.GetUserByEmail(context, loginReqDTO.Email)
 // 	if err != nil {
 // 		// c.IndentedJSON(http.StatusInternalServerError, err.Error())
 // 		return nil, err
 // 	}
 
-// 	credentialError := service.checkPassword(Category.Password, loginReqDTO.Password)
+// 	credentialError := service.checkPassword(User.Password, loginReqDTO.Password)
 // 	if credentialError != nil {
 // 		// context.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 // 		// context.Abort()
@@ -73,7 +73,7 @@ func InitialiseAuthService(repository repositories.Repository) AuthService {
 // 		return nil, errors.New(constants.AUTH_PASSWORD_MISSMATCH)
 // 	}
 
-// 	tokenString, err := service.generateJWT(Category.Nickname, Category.Email, Category.IsAdmin)
+// 	tokenString, err := service.generateJWT(User.Nickname, User.Email, User.IsAdmin)
 // 	if err != nil {
 // 		// context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 // 		// context.Abort()
@@ -99,8 +99,8 @@ func InitialiseAuthService(repository repositories.Repository) AuthService {
 // 	return lo.ToPtr(string(hash)), nil
 // }
 
-// func (service AuthService) checkPassword(CategoryPassword string, providedPassword string) error {
-// 	err := bcrypt.CompareHashAndPassword([]byte(CategoryPassword), []byte(providedPassword))
+// func (service AuthService) checkPassword(UserPassword string, providedPassword string) error {
+// 	err := bcrypt.CompareHashAndPassword([]byte(UserPassword), []byte(providedPassword))
 // 	if err != nil {
 // 		return err
 // 	}
@@ -113,7 +113,7 @@ func InitialiseAuthService(repository repositories.Repository) AuthService {
 
 // 	expirationTime := time.Now().Add(24 * time.Hour)
 
-// 	role := "Category"
+// 	role := "User"
 
 // 	if isAdmin {
 // 		role = "admin"
@@ -121,7 +121,7 @@ func InitialiseAuthService(repository repositories.Repository) AuthService {
 
 // 	claims := &JWTClaim{
 // 		Email:         email,
-// 		Categoryname:  nickname,
+// 		Username:  nickname,
 // 		Role:          role,
 // 		EmailVerified: true,
 // 		StandardClaims: jwt.StandardClaims{
