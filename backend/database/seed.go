@@ -75,5 +75,5 @@ func Seed(db *gorm.DB) {
 		},
 	}
 
-			db.Model(&models.Category{}).Create(&categories)
+	db.Model(&models.Category{}).Create(&categories)
 }

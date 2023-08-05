@@ -29,8 +29,8 @@ type SpotPreloadedEntity struct {
 	DeletedAt *time.Time `json:"deleted_at"`
 
 	Name         string                `json:"name"`
-	Category   CategoryEntity             `json:"category"`
-	Address    AddressEntity             `json:"address"`
+	Category     CategoryEntity        `json:"category"`
+	Address      AddressEntity         `json:"address"`
 	Latitude     float32               `json:"latitude"`
 	Longitude    float32               `json:"longitude"`
 	MinAuthGroup enums.SpotAccessRight `json:"min_auth_group"`

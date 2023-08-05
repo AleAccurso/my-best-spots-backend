@@ -13,7 +13,7 @@ type SpotCreateResDTO struct {
 
 	Name         string                `json:"name"`
 	CategoryId   uuid.UUID             `json:"category_id"`
-	AddressId      uuid.UUID         `json:"address_id"`
+	AddressId    uuid.UUID             `json:"address_id"`
 	Latitude     float32               `json:"latitude"`
 	Longitude    float32               `json:"longitude"`
 	MinAuthGroup enums.SpotAccessRight `json:"min_auth_group"`

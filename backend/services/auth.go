@@ -11,7 +11,7 @@ type AuthService struct {
 }
 
 type JWTClaim struct {
-	Username  string `json:"Username"`
+	Username      string `json:"Username"`
 	Email         string `json:"email"`
 	Role          string `json:"role"`
 	EmailVerified bool   `json:"email_verified"`

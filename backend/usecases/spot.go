@@ -51,7 +51,6 @@ func (usecase SpotUsecase) GetAvailableSpots(c *gin.Context, page *int, size *in
 		pageInt = nbPages
 	}
 
-
 	spotDTOs := mappers.SpotPreloadedEntitiesToPreloadedResDTOs(spotEntities)
 
 	pagingSpots := dtos.SpotPreloadedPagingResDTO{
@@ -63,7 +62,6 @@ func (usecase SpotUsecase) GetAvailableSpots(c *gin.Context, page *int, size *in
 	}
 
 	return &pagingSpots, nil
-
 
 }
 
