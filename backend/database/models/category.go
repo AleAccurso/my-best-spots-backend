@@ -14,5 +14,4 @@ type Category struct {
 
 	CategoryName string `json:"category_name" gorm:"type:varchar(64);not null"`
 	CategoryKey  string `json:"category_key" gorm:"type:varchar(64);not null;unique"`
-	IconURL      string `json:"icon_url" gorm:"type:varchar(256)"`
 }

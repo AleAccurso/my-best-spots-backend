@@ -13,7 +13,6 @@ func CategoryModelToEntity(model models.Category) entities.CategoryEntity {
 		DeletedAt:    model.DeletedAt,
 		CategoryName: model.CategoryName,
 		CategoryKey:  model.CategoryKey,
-		IconUrl:      model.IconURL,
 	}
 }
 

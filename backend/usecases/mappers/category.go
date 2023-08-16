@@ -11,7 +11,6 @@ func CategoryEntityToResDTO(entity entities.CategoryEntity) dtos.CategoryResDTO 
 
 		CategoryName: entity.CategoryName,
 		CategoryKey:  entity.CategoryKey,
-		IconUrl:      entity.IconUrl,
 	}
 }
 
