@@ -52,7 +52,7 @@ func (router Router) Run() error {
 	// Spot
 	api.GET("/spots", router.controller.SpotController.GetAvailableSpots)
 	api.GET("/spots/:spot_id", router.controller.SpotController.GetSpotById)
-	api.POST("/spots", router.controller.SpotController.AddSpot)
+	api.POST("/spots", router.authMiddleware.Authorize(router.controller.SpotController.AddSpot))
 
 	// Run the engine
 	if err := router.engine.Run(":8010"); err != nil {

@@ -80,8 +80,8 @@ func (middleware AuthMiddleware) Authorize(f func(c *gin.Context), roles ...stri
 		}
 
 		// Save email and role in context
-		c.Set("Category_email", emailString)
-		c.Set("Category_role", roleString)
+		c.Set("user_email", emailString)
+		c.Set("user_role", roleString)
 
 		// Calls the next handler in chain
 		f(c)

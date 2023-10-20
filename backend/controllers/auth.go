@@ -1,8 +1,12 @@
 package controllers
 
 import (
+	"errors"
 	"my-best-spots-backend/services"
 	"my-best-spots-backend/usecases"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type AuthController struct {
@@ -54,20 +58,20 @@ func InitialiseAuthController(usecases usecases.Usecase, services services.Servi
 // 	c.IndentedJSON(http.StatusOK, constants.SUCCESS_ACTION+"logout")
 // }
 
-// func (controller AuthController) GetMe(c *gin.Context) {
+func (controller AuthController) GetMe(c *gin.Context) {
 
-// 	CategoryEmail, ok := c.MustGet("Category_email").(string)
-// 	if !ok {
-// 		c.IndentedJSON(http.StatusBadRequest, errors.New("email not in context"))
-// 		return
-// 	}
+	userEmail, ok := c.MustGet("user_email").(string)
+	if !ok {
+		c.IndentedJSON(http.StatusBadRequest, errors.New("email not in context"))
+		return
+	}
 
-// 	Category, err := controller.usecases.CategoryUsecase.GetCategoryByEmail(c, CategoryEmail)
-// 	if err != nil {
-// 		c.IndentedJSON(http.StatusBadRequest, err.Error())
-// 		return
-// 	}
+	user, err := controller.usecases.UserUsecase.GetUserByEmail(c, userEmail)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-// 	c.IndentedJSON(http.StatusOK, Category)
+	c.IndentedJSON(http.StatusOK, user)
 
-// }
+}
