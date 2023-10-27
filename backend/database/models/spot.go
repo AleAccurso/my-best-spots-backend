@@ -17,7 +17,7 @@ type Spot struct {
 	Address      Address
 	CategoryId   uuid.UUID `json:"category_id" gorm:"not null"`
 	Category     Category
-	Latitude     float32 `json:"latitude" gorm:"min:-90;max:90;not null"`
-	Longitude    float32 `json:"longitude" gorm:"min:-180;max:180;not null"`
+	Latitude     float32 `json:"latitude" gorm:"min:-90;max:90;not null;index:idx_spot_location,unique"`
+	Longitude    float32 `json:"longitude" gorm:"min:-180;max:180;not null;index:idx_spot_location,unique"`
 	MinAuthGroup string  `json:"min_auth_group" gorm:"type:varchar(12);not null"`
 }
