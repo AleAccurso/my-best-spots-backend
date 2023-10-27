@@ -14,7 +14,7 @@ func Initialise(repository repositories.Repository, service services.Service) Us
 		UsecaseBase: UsecaseBase{
 			CategoryUsecase: InitialiseCategoryUsecase(repository),
 			SpotUsecase:     InitialiseSpotUsecase(repository),
-			UserUsecase: InitialiseUserUsecase(repository),
+			UserUsecase:     InitialiseUserUsecase(repository),
 		},
 	}
 }
