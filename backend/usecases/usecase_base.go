@@ -4,4 +4,5 @@ type UsecaseBase struct {
 	CategoryUsecase ICategoryUsecase
 	SpotUsecase     ISpotUsecase
 	UserUsecase     IUserUsecase
+	CountryUsecase  ICountryUsecase
 }

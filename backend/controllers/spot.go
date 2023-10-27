@@ -43,8 +43,6 @@ func (controller SpotController) GetAvailableSpots(c *gin.Context) {
 		}
 	}
 
-	println(c)
-
 	spots, err := controller.usecases.SpotUsecase.GetAvailableSpots(c, pagePtr, sizePtr)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, err.Error())
