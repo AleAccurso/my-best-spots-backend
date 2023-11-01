@@ -88,7 +88,8 @@ func Seed(db *gorm.DB) {
 		StreetNumber: lo.ToPtr("44"),
 		PostalCode:   "65020",
 		City:         "Musellaro",
-		Region:       "Abruzzo",
+		RegionName:   "Abruzzo",
+		RegionKey:    "abruzzo",
 		CountryName:  "Italy",
 		CountryCode:  "IT",
 	}
@@ -101,7 +102,8 @@ func Seed(db *gorm.DB) {
 		StreetNumber: lo.ToPtr("356"),
 		PostalCode:   "1070",
 		City:         "Anderlecht",
-		Region:       "Bruxelles",
+		RegionName:   "Bruxelles",
+		RegionKey:    "bruxelles",
 		CountryName:  "Belgium",
 		CountryCode:  "BE",
 	}
@@ -114,7 +116,8 @@ func Seed(db *gorm.DB) {
 		StreetNumber: lo.ToPtr("16"),
 		PostalCode:   "65024",
 		City:         "Manopello",
-		Region:       "Abruzzo",
+		RegionName:   "Abruzzo",
+		RegionKey:    "abruzzo",
 		CountryName:  "Italy",
 		CountryCode:  "IT",
 	}

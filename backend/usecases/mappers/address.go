@@ -12,7 +12,7 @@ func AddressEntityToResDTO(entity entities.AddressEntity) dtos.AddressResDTO {
 		StreetNumber: entity.StreetNumber,
 		PostalCode:   entity.PostalCode,
 		City:         entity.City,
-		Region:       entity.Region,
+		RegionName:   entity.RegionName,
 		CountryName:  entity.CountryName,
 		CountryCode:  entity.CountryCode,
 	}

@@ -106,12 +106,26 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 	return &newSpotDTO, nil
 }
 
-func (usecase SpotUsecase) GetAvailableCountries(ctx *gin.Context) ([]dtos.CountryResDTO, error) {
+func (usecase SpotUsecase) GetAvailableCountries(ctx *gin.Context) (*dtos.CountryListResDTO, error) {
 	// Call repository
-	spotEntities, err := usecase.repositories.SpotRepository.GetAvailableCountries(ctx, []enums.SpotAccessRight{enums.LOGGED_USERS})
+	countries, err := usecase.repositories.SpotRepository.GetAvailableCountries(ctx, []enums.SpotAccessRight{enums.LOGGED_USERS})
 	if err != nil {
 		return nil, err
 	}
 
-	return mappers.CountryEntitiesToResDTOs(spotEntities), nil
+	countryListDTO := mappers.CountryEntitiesToListDTO(countries)
+
+	return &countryListDTO, nil
+}
+
+func (usecase SpotUsecase) GetAvailableRegions(ctx *gin.Context, countryCode string) (*dtos.RegionListResDTO, error) {
+	// Call repository
+	regions, err := usecase.repositories.SpotRepository.GetAvailableRegionsByCountryCode(ctx, countryCode, []enums.SpotAccessRight{enums.LOGGED_USERS})
+	if err != nil {
+		return nil, err
+	}
+
+	regionListDTO := mappers.RegionEntitiesToListDTO(regions)
+
+	return &regionListDTO, nil
 }

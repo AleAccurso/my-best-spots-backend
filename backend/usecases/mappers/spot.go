@@ -12,7 +12,7 @@ func SpotReqCreateToSpotAddressEntities(spot dtos.SpotReqCreateDTO) (entities.Sp
 		StreetNumber: spot.Location.StreetNumber,
 		PostalCode:   spot.Location.PostalCode,
 		City:         spot.Location.City,
-		Region:       spot.Location.Region,
+		RegionName:   spot.Location.RegionName,
 		CountryName:  spot.Location.CountryName,
 		CountryCode:  spot.Location.CountryCode,
 	}
@@ -80,12 +80,33 @@ func CountryEntityToResDTO(entity entities.CountryEntity) dtos.CountryResDTO {
 	}
 }
 
-func CountryEntitiesToResDTOs(entities []entities.CountryEntity) []dtos.CountryResDTO {
-	dtos := make([]dtos.CountryResDTO, len(entities))
+func CountryEntitiesToListDTO(entities []entities.CountryEntity) dtos.CountryListResDTO {
+	countryDTOs := make([]dtos.CountryResDTO, len(entities))
 
 	for i, entity := range entities {
-		dtos[i] = CountryEntityToResDTO(entity)
+		countryDTOs[i] = CountryEntityToResDTO(entity)
 	}
 
-	return dtos
+	return dtos.CountryListResDTO{
+		Countries: countryDTOs,
+	}
+}
+
+func RegionEntityToResDTO(entity entities.RegionEntity) dtos.RegionResDTO {
+	return dtos.RegionResDTO{
+		Name: entity.Name,
+		Key:  entity.Key,
+	}
+}
+
+func RegionEntitiesToListDTO(entities []entities.RegionEntity) dtos.RegionListResDTO {
+	regionDTOs := make([]dtos.RegionResDTO, len(entities))
+
+	for i, entity := range entities {
+		regionDTOs[i] = RegionEntityToResDTO(entity)
+	}
+
+	return dtos.RegionListResDTO{
+		Regions: regionDTOs,
+	}
 }

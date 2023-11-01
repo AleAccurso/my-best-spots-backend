@@ -48,7 +48,7 @@ func (repository AddressRepository) InsertAddress(context context.Context, addre
 func (repository AddressRepository) CheckAddressAlreadyExists(context context.Context, addressEntity entities.AddressEntity) (*entities.AddressEntity, error) {
 	var address models.Address
 
-	err := repository.database.Model(&models.Address{}).Where("street = ?", addressEntity.Street).Where("street_number = ?", addressEntity.StreetNumber).Where("postal_code = ?", addressEntity.PostalCode).Where("city = ?", addressEntity.City).Where("region = ?", addressEntity.Region).Where("country_name = ?", addressEntity.CountryName).First(&address).Error
+	err := repository.database.Model(&models.Address{}).Where("street = ?", addressEntity.Street).Where("street_number = ?", addressEntity.StreetNumber).Where("postal_code = ?", addressEntity.PostalCode).Where("city = ?", addressEntity.City).Where("region = ?", addressEntity.RegionName).Where("country_name = ?", addressEntity.CountryName).First(&address).Error
 	if err != nil {
 		return nil, err
 	}

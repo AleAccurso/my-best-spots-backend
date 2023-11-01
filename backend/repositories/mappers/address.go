@@ -15,7 +15,7 @@ func AddressModelToEntity(model models.Address) entities.AddressEntity {
 		StreetNumber: model.StreetNumber,
 		PostalCode:   model.PostalCode,
 		City:         model.City,
-		Region:       model.Region,
+		RegionName:   model.RegionName,
 		CountryName:  model.CountryName,
 		CountryCode:  model.CountryCode,
 	}
@@ -27,7 +27,7 @@ func AddressEntityToModel(entity entities.AddressEntity) models.Address {
 		StreetNumber: entity.StreetNumber,
 		PostalCode:   entity.PostalCode,
 		City:         entity.City,
-		Region:       entity.Region,
+		RegionName:   entity.RegionName,
 		CountryName:  entity.CountryName,
 		CountryCode:  entity.CountryCode,
 	}

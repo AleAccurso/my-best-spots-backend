@@ -61,17 +61,36 @@ func (repository SpotRepository) GetSpots(context context.Context, page *int, si
 }
 
 func (repository SpotRepository) GetAvailableCountries(context context.Context, roles []enums.SpotAccessRight) ([]entities.CountryEntity, error) {
-	var countryEntities []entities.CountryEntity
+	var countries []entities.CountryEntity
 
 	err := repository.database.
-		Distinct("addresses.country_name", "addresses.country_code").
+		Distinct("addresses.country_name, addresses.country_code").
 		Table("addresses").
 		Joins("LEFT JOIN spots AS s ON s.address_id = addresses.id").
 		Where("s.min_auth_group IN (?)", roles).
-		Find(&countryEntities).Error
+		Order("addresses.country_name ASC").
+		Find(&countries).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return countryEntities, nil
+	return countries, nil
+}
+
+func (repository SpotRepository) GetAvailableRegionsByCountryCode(context context.Context, countryCode string, roles []enums.SpotAccessRight) ([]entities.RegionEntity, error) {
+	var regions []entities.RegionEntity
+
+	err := repository.database.
+		Distinct("addresses.region_name, addresses.region_key").
+		Table("addresses").
+		Joins("LEFT JOIN spots AS s ON s.address_id = addresses.id").
+		Where("s.min_auth_group IN (?)", roles).
+		Where("addresses.country_code = ?", countryCode).
+		Order("addresses.region_name ASC").
+		Find(&regions).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return regions, nil
 }

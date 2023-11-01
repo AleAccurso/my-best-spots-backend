@@ -16,7 +16,7 @@ type AddressEntity struct {
 	StreetNumber *string `bson:"street_number,omitempty" json:"street_number"`
 	PostalCode   string  `bson:"postal_code,omitempty" json:"postal_code"`
 	City         string  `bson:"city, omitempty" json:"city"`
-	Region       string  `bson:"region, omitempty" json:"region"`
+	RegionName   string  `bson:"region_name, omitempty" json:"region_name"`
 	CountryName  string  `bson:"country_name, omitempty" json:"country_name"`
 	CountryCode  string  `bson:"country_code, omitempty" json:"country_code"`
 }

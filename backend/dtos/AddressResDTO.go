@@ -11,7 +11,7 @@ type AddressResDTO struct {
 	StreetNumber *string `json:"street_number"`
 	PostalCode   string  `json:"postal_code"`
 	City         string  `json:"city"`
-	Region       string  `json:"region"`
+	RegionName   string  `json:"region_name"`
 	CountryName  string  `json:"country_name"`
 	CountryCode  string  `json:"country_code"`
 }

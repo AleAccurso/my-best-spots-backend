@@ -91,11 +91,23 @@ func (controller SpotController) AddSpot(c *gin.Context) {
 }
 
 func (controller SpotController) GetAvailableCountries(c *gin.Context) {
-	countries, err := controller.usecases.SpotUsecase.GetAvailableCountries(c)
+	countryListDTO, err := controller.usecases.SpotUsecase.GetAvailableCountries(c)
 	if err != nil {
 		c.IndentedJSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	c.IndentedJSON(http.StatusOK, countries)
+	c.IndentedJSON(http.StatusOK, countryListDTO)
+}
+
+func (controller SpotController) GetAvailableRegions(c *gin.Context) {
+	countryCode := c.Param("country_code")
+
+	regionListDTO, err := controller.usecases.SpotUsecase.GetAvailableRegions(c, countryCode)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, regionListDTO)
 }

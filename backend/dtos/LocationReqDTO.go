@@ -7,7 +7,7 @@ type LocationReqCreateDTO struct {
 	Latitude     float32 `bson:"latitude, omitempty" json:"latitude"`
 	Longitude    float32 `bson:"longitude, omitempty" json:"longitude"`
 	PostalCode   string  `bson:"postal_code, omitempty" json:"postal_code"`
-	Region       string  `bson:"region, omitempty" json:"region"`
+	RegionName   string  `bson:"region_name, omitempty" json:"region_name"`
 	Street       string  `bson:"street, omitempty" json:"street"`
 	StreetNumber *string `bson:"street_number, omitempty" json:"street_number"`
 }

@@ -41,3 +41,8 @@ type CountryEntity struct {
 	Name string `json:"name" gorm:"column:country_name"`
 	Code string `json:"code" gorm:"column:country_code"`
 }
+
+type RegionEntity struct {
+	Name string `json:"name" gorm:"column:region_name"`
+	Key  string `json:"key" gorm:"column:region_key"`
+}

@@ -16,7 +16,8 @@ type Address struct {
 	StreetNumber *string `json:"street_number" gorm:"column:street_number;type:varchar(16);not null;index:idx_address,unique"`
 	PostalCode   string  `json:"postal_code" gorm:"column:postal_code;type:varchar(16);not null;index:idx_address,unique"`
 	City         string  `json:"city" gorm:"column:city;type:varchar(64);not null;index:idx_address,unique"`
-	Region       string  `json:"region" gorm:"column:region;type:varchar(32);not null;index:idx_address,unique"`
+	RegionName   string  `json:"region_name" gorm:"column:region_name;type:varchar(32);not null;index:idx_address,unique"`
+	RegionKey    string  `json:"region_key" gorm:"column:region_key;type:varchar(32);not null;index:idx_address,unique"`
 	CountryName  string  `json:"country_name" gorm:"column:country_name;type:varchar(32);not null;index:idx_address,unique"`
 	CountryCode  string  `json:"country_code" gorm:"column:country_code;type:varchar(3);not null;index:idx_address,unique"`
 }
