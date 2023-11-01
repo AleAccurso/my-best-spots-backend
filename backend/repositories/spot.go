@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"context"
+	"my-best-spots-backend/constants"
 	"my-best-spots-backend/database/models"
 	"my-best-spots-backend/entities"
 	"my-best-spots-backend/enums"
@@ -80,12 +81,17 @@ func (repository SpotRepository) GetAvailableCountries(context context.Context, 
 func (repository SpotRepository) GetAvailableRegionsByCountryCode(context context.Context, countryCode string, roles []enums.SpotAccessRight) ([]entities.RegionEntity, error) {
 	var regions []entities.RegionEntity
 
-	err := repository.database.
+	query := repository.database.
 		Distinct("addresses.region_name, addresses.region_key").
 		Table("addresses").
 		Joins("LEFT JOIN spots AS s ON s.address_id = addresses.id").
-		Where("s.min_auth_group IN (?)", roles).
-		Where("addresses.country_code = ?", countryCode).
+		Where("s.min_auth_group IN (?)", roles)
+
+	if countryCode != constants.DEFAULT_COUNTRY_CODE {
+		query = query.Where("addresses.country_code = ?", countryCode)
+	}
+
+	err := query.
 		Order("addresses.region_name ASC").
 		Find(&regions).Error
 	if err != nil {
