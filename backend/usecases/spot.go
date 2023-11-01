@@ -4,6 +4,7 @@ import (
 	"errors"
 	"math"
 	"my-best-spots-backend/dtos"
+	"my-best-spots-backend/enums"
 	"my-best-spots-backend/repositories"
 	"my-best-spots-backend/usecases/mappers"
 
@@ -22,7 +23,6 @@ func InitialiseSpotUsecase(repositories repositories.Repository) SpotUsecase {
 }
 
 func (usecase SpotUsecase) GetAvailableSpots(c *gin.Context, page *int, size *int) (*dtos.SpotPreloadedPagingResDTO, error) {
-
 	var nbPages, pageInt, sizeInt int8
 
 	if page == nil {
@@ -104,4 +104,14 @@ func (usecase SpotUsecase) AddSpot(c *gin.Context, spot dtos.SpotReqCreateDTO) (
 	newSpotDTO := mappers.SpotCreateEntityToDTO(*newSpotEntity)
 
 	return &newSpotDTO, nil
+}
+
+func (usecase SpotUsecase) GetAvailableCountries(ctx *gin.Context) ([]dtos.CountryResDTO, error) {
+	// Call repository
+	spotEntities, err := usecase.repositories.SpotRepository.GetAvailableCountries(ctx, []enums.SpotAccessRight{enums.LOGGED_USERS})
+	if err != nil {
+		return nil, err
+	}
+
+	return mappers.CountryEntitiesToResDTOs(spotEntities), nil
 }

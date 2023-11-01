@@ -36,3 +36,8 @@ type SpotPreloadedEntity struct {
 	MinAuthGroup enums.SpotAccessRight `json:"min_auth_group"`
 	ArchivedAt   *time.Time            `json:"archived_at"`
 }
+
+type CountryEntity struct {
+	Name string `json:"name" gorm:"column:country_name"`
+	Code string `json:"code" gorm:"column:country_code"`
+}

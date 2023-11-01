@@ -11,69 +11,69 @@ import (
 
 func Seed(db *gorm.DB) {
 	category1 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Cafe - Bar",
-		CategoryKey:  "cafe-bar",
+		Id:   uuid.New(),
+		Name: "Cafe - Bar",
+		Key:  "cafe-bar",
 	}
 	category2 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Gas Station",
-		CategoryKey:  "gas-station",
+		Id:   uuid.New(),
+		Name: "Gas Station",
+		Key:  "gas-station",
 	}
 	category3 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Hosting",
-		CategoryKey:  "hosting",
+		Id:   uuid.New(),
+		Name: "Hosting",
+		Key:  "hosting",
 	}
 	category4 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Leisure",
-		CategoryKey:  "leisure",
+		Id:   uuid.New(),
+		Name: "Leisure",
+		Key:  "leisure",
 	}
 	category5 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Medical",
-		CategoryKey:  "medical",
+		Id:   uuid.New(),
+		Name: "Medical",
+		Key:  "medical",
 	}
 	category6 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Private Beach",
-		CategoryKey:  "private-beach",
+		Id:   uuid.New(),
+		Name: "Private Beach",
+		Key:  "private-beach",
 	}
 	category7 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Producer",
-		CategoryKey:  "producer",
+		Id:   uuid.New(),
+		Name: "Producer",
+		Key:  "producer",
 	}
 	category8 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Public Beach",
-		CategoryKey:  "public-beach",
+		Id:   uuid.New(),
+		Name: "Public Beach",
+		Key:  "public-beach",
 	}
 	category9 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Religious Site",
-		CategoryKey:  "religious-site",
+		Id:   uuid.New(),
+		Name: "Religious Site",
+		Key:  "religious-site",
 	}
 	category10 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Restaurant",
-		CategoryKey:  "restaurant",
+		Id:   uuid.New(),
+		Name: "Restaurant",
+		Key:  "restaurant",
 	}
 	category11 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Shop",
-		CategoryKey:  "shop",
+		Id:   uuid.New(),
+		Name: "Shop",
+		Key:  "shop",
 	}
 	category12 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Thermal",
-		CategoryKey:  "thermal",
+		Id:   uuid.New(),
+		Name: "Thermal",
+		Key:  "thermal",
 	}
 	category13 := models.Category{
-		Id:           uuid.New(),
-		CategoryName: "Tourism",
-		CategoryKey:  "tourism",
+		Id:   uuid.New(),
+		Name: "Tourism",
+		Key:  "tourism",
 	}
 
 	categories := []*models.Category{&category1, &category2, &category3, &category4, &category5, &category6, &category7, &category8, &category9, &category10, &category11, &category12, &category13}

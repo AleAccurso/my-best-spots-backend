@@ -11,8 +11,8 @@ func CategoryModelToEntity(model models.Category) entities.CategoryEntity {
 		CreatedAt:    model.CreatedAt,
 		UpdatedAt:    model.UpdatedAt,
 		DeletedAt:    model.DeletedAt,
-		CategoryName: model.CategoryName,
-		CategoryKey:  model.CategoryKey,
+		CategoryName: model.Name,
+		CategoryKey:  model.Key,
 	}
 }
 

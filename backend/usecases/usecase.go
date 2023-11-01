@@ -15,7 +15,6 @@ func Initialise(repository repositories.Repository, service services.Service) Us
 			CategoryUsecase: InitialiseCategoryUsecase(repository),
 			SpotUsecase:     InitialiseSpotUsecase(repository),
 			UserUsecase:     InitialiseUserUsecase(repository),
-			CountryUsecase:  InitialiseCountryUsecase(repository),
 		},
 	}
 }

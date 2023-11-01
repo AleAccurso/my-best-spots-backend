@@ -4,6 +4,7 @@ import (
 	"context"
 	"my-best-spots-backend/database/models"
 	"my-best-spots-backend/entities"
+	"my-best-spots-backend/enums"
 	"my-best-spots-backend/repositories/mappers"
 
 	"gorm.io/gorm"
@@ -57,4 +58,20 @@ func (repository SpotRepository) GetSpots(context context.Context, page *int, si
 	}
 
 	return spotEntities, nil
+}
+
+func (repository SpotRepository) GetAvailableCountries(context context.Context, roles []enums.SpotAccessRight) ([]entities.CountryEntity, error) {
+	var countryEntities []entities.CountryEntity
+
+	err := repository.database.
+		Distinct("addresses.country_name", "addresses.country_code").
+		Table("addresses").
+		Joins("LEFT JOIN spots AS s ON s.address_id = addresses.id").
+		Where("s.min_auth_group IN (?)", roles).
+		Find(&countryEntities).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return countryEntities, nil
 }

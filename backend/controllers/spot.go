@@ -89,3 +89,13 @@ func (controller SpotController) AddSpot(c *gin.Context) {
 
 	c.IndentedJSON(http.StatusOK, spot)
 }
+
+func (controller SpotController) GetAvailableCountries(c *gin.Context) {
+	countries, err := controller.usecases.SpotUsecase.GetAvailableCountries(c)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.IndentedJSON(http.StatusOK, countries)
+}

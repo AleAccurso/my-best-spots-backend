@@ -72,3 +72,20 @@ func SpotPreloadedEntitiesToPreloadedResDTOs(entities []entities.SpotPreloadedEn
 
 	return dtos
 }
+
+func CountryEntityToResDTO(entity entities.CountryEntity) dtos.CountryResDTO {
+	return dtos.CountryResDTO{
+		Name: entity.Name,
+		Code: entity.Code,
+	}
+}
+
+func CountryEntitiesToResDTOs(entities []entities.CountryEntity) []dtos.CountryResDTO {
+	dtos := make([]dtos.CountryResDTO, len(entities))
+
+	for i, entity := range entities {
+		dtos[i] = CountryEntityToResDTO(entity)
+	}
+
+	return dtos
+}
